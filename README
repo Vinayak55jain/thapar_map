@@ -1,0 +1,36 @@
+##
+Backend
+-In homeroute u have to able to fetch the map details like loaction of the building which we have store first in the db (as a hard code )
+-In search u have to get the deatils form the req tehn apply a logic to find the place by the help of the data store in it search for the data present in the db for thAT 
+-iN detail u have to give the detail of the room like which build ,floor ,room no,class name
+
+model 
+- try to make structure model like first go for type of building the which building in the type then go fot the floor then room no and roon name 
+
+##
+## 📁 Frontend Folder Structure
+
+### src/api/
+- `mapAPI.js`: Axios-based functions to call backend APIs for rooms and buildings.
+
+### src/components/
+- `SearchBar.jsx`: Input bar to search for rooms like "C221".
+- `MapView.jsx`: Leaflet map showing building markers with dynamic focus.
+- `InfoPanel.jsx`: Displays floor, label, and building details for selected room.
+- `BuildingTypeLegend.jsx`: Icon legend for building types.
+
+### src/context/
+- `MapContext.jsx`: Global context to share selected room and building data across components.
+
+### src/pages/
+- `HomePage.jsx`: Core layout including the map, search, and info panel.
+
+### src/styles/
+- `map.css`: Layout and UI styling for map view and overlays.
+
+### App.jsx
+- Root component wrapped with `MapProvider`.
+
+### main.jsx
+- React DOM entry point that renders the app.
+
