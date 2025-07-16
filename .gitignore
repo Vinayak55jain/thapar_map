@@ -1,0 +1,21 @@
+# Node modules
+**/node_modules/
+
+# Logs
+logs
+*.log
+
+# Build directories
+dist/
+build/
+
+# Env files
+*.env
+
+# Vite / React cache
+.vite/
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
