@@ -1,11 +1,12 @@
 ##
 Backend
 -In homeroute u have to able to fetch the map details like loaction of the building which we have store first in the db (as a hard code )
--In search u have to get the deatils form the req tehn apply a logic to find the place by the help of the data store in it search for the data present in the db for thAT 
+-In search u have to get the deatils from the req then
+apply a logic to find the place by the help of the data store in it search for the data present in the db for thAT 
 -iN detail u have to give the detail of the room like which build ,floor ,room no,class name
 
 model 
-- try to make structure model like first go for type of building the which building in the type then go fot the floor then room no and roon name 
+- try to make structure model like first go for type of building then which building in the type then go for the floor then room no and roon name 
 
 ##
 ## 📁 Frontend Folder Structure
