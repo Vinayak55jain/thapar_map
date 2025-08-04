@@ -941,7 +941,14 @@ const HomePage = () => {
     "lat": 30.35490714617021,
     "lng": 76.37017003194354,
     "timestamp": "24/7/2025, 10:24:19 pm"
-  }
+  },
+    {
+  "id": 1754284781560,
+  "name": "K Lawns",
+  "lat": 30.352705145719533,
+  "lng": 76.371221071135,
+  "timestamp": "4/8/2025, 10:49:41 am"
+}
   ];
 
   // State management - your existing states
