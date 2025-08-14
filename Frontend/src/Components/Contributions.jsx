@@ -2,7 +2,7 @@ function Contributions({ people }) {
   return (
     <section className="py-12">
       <h2 className="text-3xl sm:text-4xl text-center mb-8">Contributors</h2>
-      <div className="grid grid-cols-2 justify-items-center sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-6xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-[3rem] sm:gap-[5rem] max-w-6xl mx-auto">
         {people.map((person, index) => (
           <a href={person.url}>
             <div key={index} className="flex flex-col items-center">
