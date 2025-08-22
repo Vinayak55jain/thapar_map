@@ -107,7 +107,7 @@ const roadNetwork = {
     // Building access points
     { id: "health_centre_access", lat: 30.355953807055595, lng: 76.36908649360784, name: "Health Centre Access", type: "building_access" },
     { id: "biotech_access", lat: 30.35562828983411, lng: 76.36801083817359, name: "BioTech Access", type: "building_access" },
-    
+    { id: "badminton_court_access", lat: 30.35472279207006, lng: 76.3652905814068, name: "Indoor Badminton Court Access", type: "building_access" },
     // === 23 BUILDING ENTRIES ===
     { id: "q_entry", lat: 30.351400097548332, lng: 76.36796020898296, name: "Q Entry", type: "building_entry" },
     { id: "pg_entry", lat: 30.351603723231747, lng: 76.3654823828082, name: "PG Entry", type: "building_entry" },
@@ -183,6 +183,7 @@ const roadNetwork = {
     { from: "health_centre_chowk", to: "l_hostel_chowk", distance: 89, road_type: "secondary" },
     // Add to your edges array:
     { from: "pg_chowk", to: "sports_chowk", distance: 471, road_type: "secondary" },
+    
 
     // Building connections
     { from: "health_centre_chowk", to: "health_centre_access", distance: 280, road_type: "pedestrian" },
@@ -190,7 +191,6 @@ const roadNetwork = {
 
     { from: "h_chowk", to: "swimming_pool_entry", distance: 140, road_type: "secondary" },
     { from: "library_chowk", to: "swimming_pool_entry", distance: 320, road_type: "secondary" },
-    { from: "sports_chowk", to: "swimming_pool_entry", distance: 120, road_type: "secondary" },
 
     // === WESTERN NETWORK ===
     { from: "cos_chowk", to: "h_chowk", distance: 250, road_type: "secondary" },
@@ -239,6 +239,9 @@ const roadNetwork = {
     { from: "frg_chowk", to: "m_hostel_entry", distance: 180, road_type: "secondary" },
     { from: "g_block_entry", to: "g_block_canteen_access", distance: 103, road_type: "pedestrian" },
     { from: "g_block_entry", to: "library_chowk", distance: 148, road_type: "secondary" },
+    // Connect badminton court to both chowks
+{ from: "sports_chowk", to: "badminton_court_access", distance: 120, road_type: "secondary" },
+{ from: "h_chowk", to: "badminton_court_access", distance: 180, road_type: "secondary" },
         
     // Faculty Area
     { from: "frg_chowk", to: "frg_entry", distance: 60, road_type: "secondary" },
@@ -251,8 +254,7 @@ const roadNetwork = {
     { from: "audi_chowk", to: "guest_house_entry", distance: 150, road_type: "secondary" },
 
 
-    // 2. Add the connection to your edges array:
-    { from: "be_block_entry", to: "aahar_canteen_access", distance: 182, road_type: "pedestrian" },
+
     
     // === CROSS CONNECTIONS FOR ALTERNATIVE ROUTES ===
     { from: "h_chowk", to: "cos_chowk", distance: 250, road_type: "secondary" },
@@ -278,6 +280,8 @@ const roadNetwork = {
     { from: "lt_lawn_access", to: "health_centre_entry", distance: 117, road_type: "pedestrian" },
     { from: "lt_lawn_access", to: "biotech_entry", distance: 94, road_type: "pedestrian" },
     { from: "cos_chowk", to: "athletic_track_access", distance: 176, road_type: "secondary" },
+    { from: "be_block_entry", to: "library_chowk", distance: 182, road_type: "secondary" },
+    
   ]
 };
 
@@ -518,233 +522,161 @@ const roadNetwork = {
           overflow: 'hidden'
         }}
       >
-        {/* SVG Overlay for Path */}
-        {pathPoints.length > 0 && (
-          <svg
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              pointerEvents: 'none',
-              zIndex: 30
-            }}
-          >
-            
-            {/* Path outline for better visibility */}
-            <path
-              d={generateSVGPath()}
-              stroke="white"
-              strokeWidth="8"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ opacity: 0.8 }}
-            />
-                        
-            {/* Main path following roads */}
-            <path
-              d={generateSVGPath()}
-              stroke="#007bff"
-              strokeWidth="4"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{
-                filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))',
-                strokeDasharray: '12, 8',  // Longer dashes for better visibility
-                animation: 'dashMove 1.5s linear infinite'  // Slightly slower animation
-              }}
-            />
-                                    
-            {/* Waypoint markers */}
-            {pathPoints.map((point, index) => (
-              index > 0 && index < pathPoints.length - 1 && index % 2 === 0 && (
-                <circle
-                  key={index}
-                  cx={point.x}
-                  cy={point.y}
-                  r="4"
-                  fill="#ffc107"
-                  stroke="white"
-                  strokeWidth="2"
-                  style={{
-                    animation: `dotPulse 1.5s ease-in-out ${index * 0.2}s infinite alternate`
-                  }}
-                />
-              )
-            ))}
-          </svg>
-        )}
+{/* SVG Overlay for Path */}
+{pathPoints.length > 0 && (
+  <svg
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      pointerEvents: 'none',
+      zIndex: 30
+    }}
+  >
+    {/* Path shadow */}
+    <path
+      d={generateSVGPath()}
+      stroke="rgba(0,0,0,0.15)"
+      strokeWidth="8"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ filter: 'blur(2px)' }}
+    />
+    
+    {/* Main path */}
+    <path
+      d={generateSVGPath()}
+      stroke="#007bff"
+      strokeWidth="4"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    
+    {/* Animated dashes */}
+    <path
+      d={generateSVGPath()}
+      stroke="rgba(255,255,255,0.9)"
+      strokeWidth="2"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{
+        strokeDasharray: '6, 12',
+        animation: 'simpleFlow 2s linear infinite'
+      }}
+    />
+  </svg>
+)}
 
-        {/* Road Network Visualization (Optional - for debugging) */}
-        {false && ( // Set to true to see road network
-          <svg
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              pointerEvents: 'none',
-              zIndex: 20
-            }}
-          >
-            {/* Road network edges */}
-            {roadNetwork.edges.map((edge, index) => {
-              const fromNode = roadNetwork.nodes.find(n => n.id === edge.from);
-              const toNode = roadNetwork.nodes.find(n => n.id === edge.to);
-              if (!fromNode || !toNode) return null;
-              
-              const fromPixel = latLngToPixel(fromNode.lat, fromNode.lng);
-              const toPixel = latLngToPixel(toNode.lat, toNode.lng);
-              
-              return (
-                <line
-                  key={index}
-                  x1={fromPixel.x}
-                  y1={fromPixel.y}
-                  x2={toPixel.x}
-                  y2={toPixel.y}
-                  stroke="rgba(255,0,0,0.3)"
-                  strokeWidth="2"
-                />
-              );
-            })}
-            
-            {/* Road network nodes */}
-            {roadNetwork.nodes.map((node, index) => {
-              const pixel = latLngToPixel(node.lat, node.lng);
-              return (
-                <circle
-                  key={index}
-                  cx={pixel.x}
-                  cy={pixel.y}
-                  r="3"
-                  fill="red"
-                  opacity="0.5"
-                />
-              );
-            })}
-          </svg>
-        )}
+{/* START Location Marker */}
+{startLocation && (
+  <>
+    <div
+      style={{
+        position: 'absolute',
+        left: `${latLngToPixel(startLocation.lat, startLocation.lng).x}px`,
+        top: `${latLngToPixel(startLocation.lat, startLocation.lng).y}px`,
+        fontSize: '32px',
+        cursor: 'pointer',
+        zIndex: 100,
+        transform: 'translate(-50%, -100%)',
+        animation: 'pinBounce 0.6s ease-out',
+        filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))',
+        transition: 'transform 0.2s ease'
+      }}
+      onClick={() => {
+        if (onMarkerClick) {
+          onMarkerClick(startLocation, () => {});
+        }
+      }}
+      onMouseEnter={(e) => e.target.style.transform = 'translate(-50%, -100%) scale(1.1)'}
+      onMouseLeave={(e) => e.target.style.transform = 'translate(-50%, -100%) scale(1)'}
+      title={`START: ${startLocation.name}`}
+    >
+      📍
+    </div>
 
-        {/* START Location Marker */}
-        {startLocation && (
-          <>
-            <div
-              style={{
-                position: 'absolute',
-                left: `${latLngToPixel(startLocation.lat, startLocation.lng).x}px`,
-                top: `${latLngToPixel(startLocation.lat, startLocation.lng).y}px`,
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                border: '4px solid #28a745',
-                backgroundColor: 'rgba(40, 167, 69, 0.1)',
-                zIndex: 50,
-                transform: 'translate(-50%, -50%)',
-                animation: 'pulse 2s infinite',
-                pointerEvents: 'none'
-              }}
-            />
+    {/* Label */}
+    <div
+      style={{
+        position: 'absolute',
+        left: `${latLngToPixel(startLocation.lat, startLocation.lng).x}px`,
+        top: `${latLngToPixel(startLocation.lat, startLocation.lng).y + 8}px`,
+        transform: 'translateX(-50%)',
+        backgroundColor: '#007bff',
+        color: 'white',
+        padding: '4px 8px',
+        borderRadius: '8px',
+        fontSize: '10px',
+        fontWeight: 'bold',
+        zIndex: 90,
+        animation: 'fadeInUp 0.5s ease-out 0.3s both',
+        pointerEvents: 'none',
+        whiteSpace: 'nowrap',
+        boxShadow: '0 2px 6px rgba(0, 123, 255, 0.2)'
+      }}
+    >
+      START
+    </div>
+  </>
+)}
 
-            <div
-              style={{
-                position: 'absolute',
-                left: `${latLngToPixel(startLocation.lat, startLocation.lng).x}px`,
-                top: `${latLngToPixel(startLocation.lat, startLocation.lng).y}px`,
-                width: '32px',
-                height: '32px',
-                cursor: 'pointer',
-                zIndex: 100,
-                transform: 'translate(-50%, -50%)',
-                animation: 'markerReveal 0.5s ease-out'
-              }}
-              onClick={() => {
-                if (onMarkerClick) {
-                  onMarkerClick(startLocation, () => {});
-                }
-              }}
-              title={`START: ${startLocation.name}`}
-            >
-              <div style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: '#28a745',
-                borderRadius: '50%',
-                border: '4px solid white',
-                boxShadow: '0 4px 12px rgba(40, 167, 69, 0.4)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '14px',
-                transition: 'all 0.3s ease'
-              }}>
-                🚀
-              </div>
-            </div>
-          </>
-        )}
+{/* END Location Marker */}
+{matchedLocation && searchTerm && (
+  <>
+    <div
+      style={{
+        position: 'absolute',
+        left: `${latLngToPixel(matchedLocation.lat, matchedLocation.lng).x}px`,
+        top: `${latLngToPixel(matchedLocation.lat, matchedLocation.lng).y}px`,
+        fontSize: '32px',
+        cursor: 'pointer',
+        zIndex: 100,
+        transform: 'translate(-50%, -100%)',
+        animation: 'pinBounce 0.6s ease-out 0.2s both',
+        filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) hue-rotate(20deg)',
+        transition: 'transform 0.2s ease'
+      }}
+      onClick={() => {
+        if (onMarkerClick) {
+          onMarkerClick(matchedLocation, deleteMarker);
+        }
+      }}
+      onMouseEnter={(e) => e.target.style.transform = 'translate(-50%, -100%) scale(1.1)'}
+      onMouseLeave={(e) => e.target.style.transform = 'translate(-50%, -100%) scale(1)'}
+      title={`END: ${matchedLocation.name}`}
+    >
+      📍
+    </div>
 
-        {/* END Location Marker */}
-        {matchedLocation && searchTerm && (
-          <>
-            <div
-              style={{
-                position: 'absolute',
-                left: `${latLngToPixel(matchedLocation.lat, matchedLocation.lng).x}px`,
-                top: `${latLngToPixel(matchedLocation.lat, matchedLocation.lng).y}px`,
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                border: '4px solid #dc3545',
-                backgroundColor: 'rgba(220, 53, 69, 0.1)',
-                zIndex: 50,
-                transform: 'translate(-50%, -50%)',
-                animation: 'pulse 2s infinite',
-                pointerEvents: 'none'
-              }}
-            />
-
-            <div
-              style={{
-                position: 'absolute',
-                left: `${latLngToPixel(matchedLocation.lat, matchedLocation.lng).x}px`,
-                top: `${latLngToPixel(matchedLocation.lat, matchedLocation.lng).y}px`,
-                width: '32px',
-                height: '32px',
-                cursor: 'pointer',
-                zIndex: 100,
-                transform: 'translate(-50%, -50%)',
-                animation: 'markerReveal 0.5s ease-out'
-              }}
-              onClick={() => {
-                if (onMarkerClick) {
-                  onMarkerClick(matchedLocation, deleteMarker);
-                }
-              }}
-              title={`END: ${matchedLocation.name}`}
-            >
-              <div style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: '#dc3545',
-                borderRadius: '50%',
-                border: '4px solid white',
-                boxShadow: '0 4px 12px rgba(220, 53, 69, 0.4)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '14px',
-                transition: 'all 0.3s ease'
-              }}>
-                🎯
-              </div>
-            </div>
-          </>
-        )}
+    {/* Label */}
+    <div
+      style={{
+        position: 'absolute',
+        left: `${latLngToPixel(matchedLocation.lat, matchedLocation.lng).x}px`,
+        top: `${latLngToPixel(matchedLocation.lat, matchedLocation.lng).y + 8}px`,
+        transform: 'translateX(-50%)',
+        backgroundColor: '#dc3545',
+        color: 'white',
+        padding: '4px 8px',
+        borderRadius: '8px',
+        fontSize: '10px',
+        fontWeight: 'bold',
+        zIndex: 90,
+        animation: 'fadeInUp 0.5s ease-out 0.5s both',
+        pointerEvents: 'none',
+        whiteSpace: 'nowrap',
+        boxShadow: '0 2px 6px rgba(220, 53, 69, 0.2)'
+      }}
+    >
+      END
+    </div>
+  </>
+)}
 
         {/* Path Information Panel */}
         {/*pathPoints.length > 0 && selectedRoute?.start && selectedRoute?.end && (
@@ -821,57 +753,75 @@ const roadNetwork = {
       </div>
 
       {/* CSS Animations */}
-      <style>{`
-        @keyframes pulse {
-          0% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-          }
-          50% {
-            transform: translate(-50%, -50%) scale(1.1);
-            opacity: 0.7;
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-          }
-        }
+<style>{`
+  @keyframes simplePulse {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.2);
+      opacity: 0.1;
+    }
+  }
 
-        @keyframes markerReveal {
-          0% {
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 0;
-          }
-          50% {
-            transform: translate(-50%, -50%) scale(1.2);
-            opacity: 0.8;
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-          }
-        }
+  @keyframes bounceIn {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+    }
+    60% {
+      transform: translate(-50%, -50%) scale(1.15);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
 
-        @keyframes dashMove {
-          0% {
-            stroke-dashoffset: 0;
-          }
-          100% {
-            stroke-dashoffset: 15;
-          }
-        }
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
 
-        @keyframes dotPulse {
-          0% {
-            opacity: 0.3;
-            transform: scale(0.8);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1.2);
-          }
-        }
-      `}</style>
+@keyframes simpleFlow {
+  0% {
+    stroke-dashoffset: 18;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+  @keyframes simpleDotPulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.3);
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+`}</style>
     </div>
   );
 };

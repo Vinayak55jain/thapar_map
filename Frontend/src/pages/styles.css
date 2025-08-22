@@ -1,0 +1,656 @@
+/* ===== COORDINATE FINDER STYLES ===== */
+.coordinate-finder {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  width: 350px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.coordinate-finder h3 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* GPS Button */
+.gps-button {
+  width: 100%;
+  padding: 12px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.gps-button:enabled {
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+.gps-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.gps-button:hover:enabled {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff40;
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-bottom: 8px;
+  border: 1px solid #f5c6cb;
+}
+
+/* Manual Input Section */
+.manual-input-section {
+  margin-bottom: 16px;
+}
+
+.manual-input-divider {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+  text-align: center;
+  padding: 4px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.coordinate-inputs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.coordinate-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.coordinate-input:focus {
+  border-color: #007bff;
+}
+
+.find-locations-button {
+  width: 100%;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.find-locations-button:enabled {
+  background-color: #28a745;
+  cursor: pointer;
+}
+
+.find-locations-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.find-locations-button:hover:enabled {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+/* Results Section */
+.results-section {
+  margin-bottom: 16px;
+}
+
+.results-title {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.location-card {
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.location-card:not(.selected) {
+  border: 2px solid #e9ecef;
+  background-color: #f8f9fa;
+}
+
+.location-card.selected {
+  border: 3px solid #28a745;
+  background-color: #f8fff8;
+}
+
+.location-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.location-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.location-name {
+  margin: 0;
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.distance-badge {
+  background-color: #007bff;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.location-coordinates {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.selected-indicator {
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Reset Button */
+.reset-button {
+  width: 100%;
+  padding: 8px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+/* Instructions */
+.instructions {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #e7f3ff;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #0056b3;
+}
+
+/* ===== STATUS INDICATORS ===== */
+.status-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.status-indicator.start-selected {
+  background-color: rgba(40, 167, 69, 0.95);
+  box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+}
+
+.status-indicator.route-confirmed {
+  background-color: rgba(220, 53, 69, 0.95);
+  box-shadow: 0 4px 15px rgba(220,53,69,0.3);
+}
+
+.status-indicator:hover {
+  transform: scale(1.05);
+}
+
+.status-indicator.start-selected:hover {
+  background-color: rgba(40, 167, 69, 1);
+}
+
+.status-indicator.route-confirmed:hover {
+  background-color: rgba(220, 53, 69, 1);
+}
+
+/* ===== ROUTE CONFIRMATION POPUP ===== */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.popup-content {
+  background-color: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+}
+
+.popup-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.popup-title {
+  margin: 0 0 24px 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.route-details {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.route-point {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.route-point:last-of-type {
+  margin-bottom: 0;
+}
+
+.route-icon {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 12px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.route-icon.start {
+  background-color: #28a745;
+}
+
+.route-icon.end {
+  background-color: #d90429;
+}
+
+.distance-info {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #e7f3ff;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #0056b3;
+  font-weight: bold;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.popup-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.popup-button.cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+.popup-button.confirm {
+  background-color: #28a745;
+  color: white;
+}
+
+.popup-button:hover {
+  transform: translateY(-2px);
+}
+
+.popup-button.cancel:hover {
+  background-color: #5a6268;
+}
+
+.popup-button.confirm:hover {
+  background-color: #218838;
+}
+
+/* ===== APP TITLE ===== */
+.app-title {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  z-index: 1000;
+}
+
+/* ===== MOBILE RESPONSIVE STYLES ===== */
+
+/* Tablets and smaller desktops */
+@media (max-width: 1024px) {
+  .coordinate-finder {
+    width: 320px;
+    padding: 16px;
+  }
+  
+  .popup-content {
+    padding: 24px;
+    max-width: 380px;
+  }
+  
+  .popup-title {
+    font-size: 20px;
+  }
+}
+
+/* Mobile landscape */
+@media (max-width: 768px) {
+  .coordinate-finder {
+    width: 280px;
+    top: 10px;
+    right: 10px;
+    padding: 12px;
+    max-height: 70vh;
+  }
+  
+  .coordinate-finder h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .status-indicator {
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .popup-content {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .popup-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .popup-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+  
+  .route-details {
+    padding: 16px;
+  }
+  
+  .popup-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .popup-button {
+    width: 100%;
+    padding: 14px;
+  }
+  
+  .app-title {
+    bottom: 10px;
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+  .coordinate-finder {
+    width: calc(100vw - 20px);
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    max-height: 60vh;
+    padding: 10px;
+  }
+  
+  .coordinate-finder h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .coordinate-inputs {
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .coordinate-input {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  .gps-button,
+  .find-locations-button {
+    padding: 10px;
+    font-size: 12px;
+  }
+  
+  .location-card {
+    padding: 8px;
+    margin-bottom: 6px;
+  }
+  
+  .location-name {
+    font-size: 12px;
+  }
+  
+  .distance-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+  }
+  
+  .location-coordinates {
+    font-size: 10px;
+  }
+  
+  .instructions {
+    font-size: 10px;
+    padding: 8px;
+    margin-top: 12px;
+  }
+  
+  .status-indicator {
+    position: relative;
+    width: calc(100vw - 20px);
+    left: 10px;
+    right: 10px;
+    top: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+  
+  .popup-overlay {
+    padding: 10px;
+  }
+  
+  .popup-content {
+    padding: 16px;
+    margin: 0;
+  }
+  
+  .popup-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .popup-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  
+  .route-details {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .route-point {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .route-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+  
+  .distance-info {
+    font-size: 12px;
+    padding: 8px;
+  }
+  
+  .app-title {
+    bottom: 8px;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 16px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .coordinate-finder {
+    width: calc(100vw - 16px);
+    left: 8px;
+    right: 8px;
+    padding: 8px;
+    max-height: 55vh;
+  }
+  
+  .popup-overlay {
+    padding: 8px;
+  }
+  
+  .popup-content {
+    padding: 12px;
+  }
+  
+  .status-indicator {
+    left: 8px;
+    right: 8px;
+    width: calc(100vw - 16px);
+  }
+}
+
+/* Hide scrollbar for webkit browsers in coordinate finder */
+.coordinate-finder::-webkit-scrollbar {
+  width: 4px;
+}
+
+.coordinate-finder::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.coordinate-finder::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.coordinate-finder::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
