@@ -705,51 +705,42 @@ const roadNetwork = {
           </div>
         )}
 
-        {/* No Search Message */}
-        {(!searchTerm || searchTerm.trim() === '') && !startLocation && (
-          <div style={{
-            position: 'absolute',
-            top: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            color: 'white',
-            padding: '12px 20px',
-            borderRadius: '8px',
-            textAlign: 'center',
-            fontSize: '14px',
-            zIndex: 200,
-            backdropFilter: 'blur(5px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
-          }}>
-            🔍 Select start location (GPS) and search for destination
-          </div>
-        )}
+{/* No Search Message */}
+{(!searchTerm || searchTerm.trim() === '') && !startLocation && (
+  <div style={{
+    position: 'absolute',
+    top: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    color: 'white',
+    padding: '12px 20px',
+    borderRadius: '8px',
+    textAlign: 'center',
+    fontSize: '14px',
+    zIndex: 200,
+    backdropFilter: 'blur(5px)',
+    border: '1px solid rgba(255, 255, 255, 0.2)'
+  }}>
+    🔍 Select start location (GPS) and search for destination
+  </div>
+)}
 
-        {/* Road Network Toggle Button (for debugging) */}
-        <button
-          onClick={() => {
-            // Toggle road network visibility
-            const svg = document.querySelector('svg[style*="z-index: 20"]');
-            if (svg) {
-              svg.style.display = svg.style.display === 'none' ? 'block' : 'none';
-            }
-          }}
-          style={{
-            position: 'absolute',
-            top: '20px',
-            right: '120px',
-            zIndex: 1000,
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-            border: '2px solid #007bff',
-            borderRadius: '8px',
-            padding: '8px 12px',
-            fontSize: '12px',
-            cursor: 'pointer'
-          }}
-        >
-          🛣️ Show Roads
-        </button>
+{/* Logo in bottom left corner */}
+<img 
+  src="acm_logo.png" 
+  alt="Logo" 
+  style={{
+    position: 'absolute',
+    bottom: '20px',
+    left: '20px',
+    height: '60px',        // Increased from 50px to 70px
+    width: 'auto',
+    zIndex: 200,
+    filter: 'drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2))'
+  }}
+/>
+
       </div>
 
       {/* CSS Animations */}

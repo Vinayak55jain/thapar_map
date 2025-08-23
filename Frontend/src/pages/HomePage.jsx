@@ -1100,13 +1100,14 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* Search Bar - Hide when route is confirmed */}
-      {!showRouteConfirmation && !(selectedRoute.start && selectedRoute.end && !showRouteConfirmation) && (
-        <SearchBar 
-          onSearch={handleSearch}
-          onSearchSubmit={handleSearchSubmit}
-        />
-      )}
+   {/* Search Bar - Hide when route is confirmed */}
+{!showRouteConfirmation && !(selectedRoute.start && selectedRoute.end && !showRouteConfirmation) && (
+  <SearchBar 
+    locations={fixedLocations}
+    onSearch={handleSearch}
+    onSearchSubmit={handleSearchSubmit}
+  />
+)}
 
       {/* UPDATED: CoordinateFinder - Only show if no start selected and route not confirmed */}
       {showCoordinateFinder && !showRouteConfirmation && !(selectedRoute.start && selectedRoute.end) && (
